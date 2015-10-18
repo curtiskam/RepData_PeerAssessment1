@@ -69,13 +69,15 @@ HighInterval <- Intervals[which.max(Intervals[, 2]), 1]
 HighValue <- Intervals[which.max(Intervals[, 2]), 2]
 ```
 
-The Maximum Number of Steps in a 5 minute interval is 206.1698113 and this starts at 835 minutes into the day.
+The Maximum Average Number of Steps in a 5 minute interval is 206.1698113 and this starts at 835 minutes into the day.
 
 # Imputing missing values
 
 Find the total missing vales and report.
 
-Fill in the NA values with the mean for that interval, plot the histogram to see how it changes.  Post the mean and median.
+Strategy for NAs: Fill in the NA values with the mean for that interval, plot the histogram to see how it changes.  
+
+Post the mean and median after missing values are imputed.
 
 
 ```r
@@ -95,7 +97,7 @@ colnames(SumDays3) <- c("Day", "Total_Steps")
 
 library(ggplot2)
 ggplot(SumDays3, aes(x = Total_Steps)) + geom_histogram(binwidth = 800, fill="white", color="blue") + 
-    labs(title="Distribution of Total Steps Taken Every Day", x = "Steps per Day", y="Occurrences")
+    labs(title="Distribution of Total Steps Taken Every Day \n After Missing Values Imputed", x = "Steps per Day", y="Occurrences")
 ```
 
 ![](PA1_template_files/figure-html/question3b-1.png) 
@@ -106,7 +108,7 @@ MeanSteps3 <- mean(SumDays3$Total_Steps)
 MedianSteps3 <- median(SumDays3$Total_Steps)
 ```
 
-Once the means for the interval replace missing values:
+Once the means for the interval replace missing values are imputed:
 
 The Mean Daily Number of Steps is 1.0766189\times 10^{4}
 
