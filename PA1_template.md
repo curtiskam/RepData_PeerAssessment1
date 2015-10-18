@@ -27,7 +27,9 @@ SumDays <- aggregate(activity$steps, by = list(activity$date), FUN = "sum")
 colnames(SumDays) <- c("Day", "Total_Steps")
 
 library(ggplot2)
-ggplot(SumDays, aes(x = Total_Steps)) + geom_histogram(binwidth = 800, fill="white", color="blue") + labs(title="Distribution of Total Steps Taken Every Day", x = "Steps per Day", y="Occurrences")
+ggplot(SumDays, aes(x = Total_Steps)) + 
+    geom_histogram(binwidth = 800, fill="white", color="blue") + 
+    labs(title="Distribution of Total Steps Taken Every Day", x = "Steps per Day", y="Occurrences")
 ```
 
 ![](PA1_template_files/figure-html/question1-1.png) 
@@ -55,7 +57,8 @@ Intervals <- aggregate(activity2$steps, by = list(activity2$interval), FUN = "me
 colnames(Intervals) <- c("Time_Interval", "Mean_Steps")
 
 g <- ggplot(Intervals, aes(x = Time_Interval, y = Mean_Steps))
-g + geom_line(binwidth = 800, fill="white", color="blue") + labs(title="Average Number of Steps Taken \n In 5 Minute Intervals Throughout the Day", x = "Time Interval", y = "Average Number of Steps")
+g + geom_line(binwidth = 800, fill="white", color="blue") + 
+    labs(title="Average Number of Steps Taken \n In 5 Minute Intervals Throughout the Day", x = "Time Interval", y = "Average Number of Steps")
 ```
 
 ![](PA1_template_files/figure-html/question2-1.png) 
@@ -83,7 +86,8 @@ SumDays3 <- aggregate(activity3$steps, by = list(activity3$date), FUN = "sum")
 colnames(SumDays3) <- c("Day", "Total_Steps")
 
 library(ggplot2)
-ggplot(SumDays3, aes(x = Total_Steps)) + geom_histogram(binwidth = 800, fill="white", color="blue") + labs(title="Distribution of Total Steps Taken Every Day", x = "Steps per Day", y="Occurrences")
+ggplot(SumDays3, aes(x = Total_Steps)) + geom_histogram(binwidth = 800, fill="white", color="blue") + 
+    labs(title="Distribution of Total Steps Taken Every Day", x = "Steps per Day", y="Occurrences")
 ```
 
 ![](PA1_template_files/figure-html/question3-1.png) 
