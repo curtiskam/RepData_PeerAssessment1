@@ -58,7 +58,8 @@ colnames(Intervals) <- c("Time_Interval", "Mean_Steps")
 
 g <- ggplot(Intervals, aes(x = Time_Interval, y = Mean_Steps))
 g + geom_line(binwidth = 800, fill="white", color="blue") + 
-    labs(title="Average Number of Steps Taken \n In 5 Minute Intervals Throughout the Day", x = "Time Interval", y = "Average Number of Steps")
+    labs(title="Average Number of Steps Taken \n In 5 Minute Intervals Throughout the Day", 
+         x = "Time Interval", y = "Average Number of Steps")
 ```
 
 ![](PA1_template_files/figure-html/question2-1.png) 
@@ -110,7 +111,8 @@ Identify which days are weekdays and weekends, then post the data for each set o
 
 
 ```r
-activity3$Weekday <- ifelse(weekdays(activity3$date) != "Saturday" & weekdays(activity3$date) != "Sunday", "Weekday", "Weekend")
+activity3$Weekday <- ifelse(weekdays(activity3$date) != "Saturday" & 
+                                weekdays(activity3$date) != "Sunday", "Weekday", "Weekend")
 
 activity3$Weekday <- as.factor(activity3$Weekday)
 
