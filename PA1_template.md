@@ -73,6 +73,8 @@ The Maximum Number of Steps in a 5 minute interval is 206.1698113 and this start
 
 # Imputing missing values
 
+Find the total missing vales and report.
+
 Fill in the NA values with the mean for that interval, plot the histogram to see how it changes.  Post the mean and median.
 
 
@@ -99,9 +101,11 @@ MeanSteps3 <- mean(SumDays3$Total_Steps)
 MedianSteps3 <- median(SumDays3$Total_Steps)
 ```
 
+There are 2304 rows with mssing values
+
+Once the means for the interval replace missing values:
 
 The Mean Daily Number of Steps is 1.0766189\times 10^{4}
-
 
 The Median Daily Number of Steps is 1.0766189\times 10^{4}
 

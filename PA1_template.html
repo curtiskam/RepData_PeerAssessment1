@@ -113,6 +113,7 @@ HighValue &lt;- Intervals[which.max(Intervals[, 2]), 2]</code></pre>
 </div>
 <div id="imputing-missing-values" class="section level1">
 <h1>Imputing missing values</h1>
+<p>Find the total missing vales and report.</p>
 <p>Fill in the NA values with the mean for that interval, plot the histogram to see how it changes. Post the mean and median.</p>
 <pre class="r"><code>missing &lt;- (nrow(activity)- sum(complete.cases(activity)))
 
@@ -130,6 +131,8 @@ ggplot(SumDays3, aes(x = Total_Steps)) + geom_histogram(binwidth = 800, fill=&qu
 <pre class="r"><code>MeanSteps3 &lt;- mean(SumDays3$Total_Steps)
 
 MedianSteps3 &lt;- median(SumDays3$Total_Steps)</code></pre>
+<p>There are 2304 rows with mssing values</p>
+<p>Once the means for the interval replace missing values:</p>
 <p>The Mean Daily Number of Steps is 1.076618910^{4}</p>
 <p>The Median Daily Number of Steps is 1.076618910^{4}</p>
 </div>
