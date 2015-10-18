@@ -3,6 +3,8 @@
 
 # Loading and preprocessing the data
 
+Read the data file, unzip it, and change the date to date format.
+
 
 ```r
 setwd("D:/Document/RProgramming/RepData_PeerAssessment1")
@@ -15,6 +17,8 @@ activity$date <- as.Date(activity$date, format = "%Y-%m-%d")
 ```
 
 # What is mean total number of steps taken per day?
+
+Calculate total steps per day and plot a histogramof the distribution. Then post the mean and median.
 
 
 ```r
@@ -40,6 +44,8 @@ The Median Daily Number of Steps is 10765
 
 # What is the average daily activity pattern?
 
+Calculate the mean for each 5 minute period, then plot.  Find the period with the maximum average steps and post it.
+
 
 ```r
 activity2 <- activity[!is.na(activity$steps), ]
@@ -62,6 +68,8 @@ HighValue <- Intervals[which.max(Intervals[, 2]), 2]
 The Maximum Number of Steps in a 5 minute interval is 206.1698113 and this starts at 835 minutes into the day.
 
 # Imputing missing values
+
+Fill in the NA values with the mean for that interval, plot the histogram to see how it changes.  Post the mean and median.
 
 
 ```r
@@ -93,6 +101,8 @@ The Mean Daily Number of Steps is 1.0766189\times 10^{4}
 The Median Daily Number of Steps is 1.0766189\times 10^{4}
 
 # Are there differences in activity patterns between weekdays and weekends?
+
+Identify which days are weekdays and weekends, then post the data for each set of days to see if there is a difference in patterns.
 
 
 ```r

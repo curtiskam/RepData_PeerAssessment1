@@ -66,6 +66,7 @@ img {
 
 <div id="loading-and-preprocessing-the-data" class="section level1">
 <h1>Loading and preprocessing the data</h1>
+<p>Read the data file, unzip it, and change the date to date format.</p>
 <pre class="r"><code>setwd(&quot;D:/Document/RProgramming/RepData_PeerAssessment1&quot;)
 
 unzip(&quot;activity.zip&quot;)
@@ -76,6 +77,7 @@ activity$date &lt;- as.Date(activity$date, format = &quot;%Y-%m-%d&quot;)</code>
 </div>
 <div id="what-is-mean-total-number-of-steps-taken-per-day" class="section level1">
 <h1>What is mean total number of steps taken per day?</h1>
+<p>Calculate total steps per day and plot a histogramof the distribution. Then post the mean and median.</p>
 <pre class="r"><code>SumDays &lt;- aggregate(activity$steps, by = list(activity$date), FUN = &quot;sum&quot;)
 
 colnames(SumDays) &lt;- c(&quot;Day&quot;, &quot;Total_Steps&quot;)
@@ -91,6 +93,7 @@ MedianSteps &lt;- median(SumDays$Total_Steps, na.rm=TRUE)</code></pre>
 </div>
 <div id="what-is-the-average-daily-activity-pattern" class="section level1">
 <h1>What is the average daily activity pattern?</h1>
+<p>Calculate the mean for each 5 minute period, then plot. Find the period with the maximum average steps and post it.</p>
 <pre class="r"><code>activity2 &lt;- activity[!is.na(activity$steps), ]
 
 Intervals &lt;- aggregate(activity2$steps, by = list(activity2$interval), FUN = &quot;mean&quot;)
@@ -106,6 +109,7 @@ HighValue &lt;- Intervals[which.max(Intervals[, 2]), 2]</code></pre>
 </div>
 <div id="imputing-missing-values" class="section level1">
 <h1>Imputing missing values</h1>
+<p>Fill in the NA values with the mean for that interval, plot the histogram to see how it changes. Post the mean and median.</p>
 <pre class="r"><code>missing &lt;- (nrow(activity)- sum(complete.cases(activity)))
 
 activity3 &lt;- merge(activity, Intervals, by.x = &quot;interval&quot;, by.y = &quot;Time_Interval&quot;, all.x = TRUE)
@@ -126,6 +130,7 @@ MedianSteps3 &lt;- median(SumDays3$Total_Steps)</code></pre>
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level1">
 <h1>Are there differences in activity patterns between weekdays and weekends?</h1>
+<p>Identify which days are weekdays and weekends, then post the data for each set of days to see if there is a difference in patterns.</p>
 <pre class="r"><code>activity3$Weekday &lt;- ifelse(weekdays(activity3$date) != &quot;Saturday&quot; &amp; weekdays(activity3$date) != &quot;Sunday&quot;, &quot;Weekday&quot;, &quot;Weekend&quot;)
 
 activity3$Weekday &lt;- as.factor(activity3$Weekday)
