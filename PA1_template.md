@@ -18,7 +18,7 @@ activity$date <- as.Date(activity$date, format = "%Y-%m-%d")
 
 # What is mean total number of steps taken per day?
 
-Calculate total steps per day and plot a histogramof the distribution. Then post the mean and median.
+Calculate total steps per day and plot a histogram of the distribution. Then post the mean and median.
 
 
 ```r
@@ -80,7 +80,12 @@ Fill in the NA values with the mean for that interval, plot the histogram to see
 
 ```r
 missing <- (nrow(activity)- sum(complete.cases(activity)))
+```
 
+There are 2304 rows with missing values
+
+
+```r
 activity3 <- merge(activity, Intervals, by.x = "interval", by.y = "Time_Interval", all.x = TRUE)
 activity3$steps[is.na(activity3$steps)] <- activity3$Mean_Steps[is.na(activity3$steps)]
                  
@@ -93,7 +98,7 @@ ggplot(SumDays3, aes(x = Total_Steps)) + geom_histogram(binwidth = 800, fill="wh
     labs(title="Distribution of Total Steps Taken Every Day", x = "Steps per Day", y="Occurrences")
 ```
 
-![](PA1_template_files/figure-html/question3-1.png) 
+![](PA1_template_files/figure-html/question3b-1.png) 
 
 ```r
 MeanSteps3 <- mean(SumDays3$Total_Steps)
@@ -101,13 +106,13 @@ MeanSteps3 <- mean(SumDays3$Total_Steps)
 MedianSteps3 <- median(SumDays3$Total_Steps)
 ```
 
-There are 2304 rows with missing values
-
 Once the means for the interval replace missing values:
 
 The Mean Daily Number of Steps is 1.0766189\times 10^{4}
 
 The Median Daily Number of Steps is 1.0766189\times 10^{4}
+
+The Mean stayed the same, the Median adjusted to the Mean.
 
 # Are there differences in activity patterns between weekdays and weekends?
 
