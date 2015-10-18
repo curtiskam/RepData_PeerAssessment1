@@ -9,93 +9,118 @@ output:
 # Loading and preprocessing the data
 
 ```{r load_data, echo=TRUE}
+##Set Working Directory
 setwd("D:/Document/RProgramming/RepData_PeerAssessment1")
 
+##Unzip Data File
 unzip("activity.zip")
 
+##Read data from csv file##
 activity <- read.csv("activity.csv", header=TRUE)
 
+##Change dates to date variables##
 activity$date <- as.Date(activity$date, format = "%Y-%m-%d")
 ```
 
 # What is mean total number of steps taken per day?
 
 ```{r question1, echo=TRUE}
-
+## Get sums for days##
 SumDays <- aggregate(activity$steps, by = list(activity$date), FUN = "sum")
 
+##Assign Column Headers##
 colnames(SumDays) <- c("Day", "Total_Steps")
 
+## Draw Histogram##
 library(ggplot2)
 ggplot(SumDays, aes(x = Total_Steps)) + geom_histogram(binwidth = 800, fill="white", color="blue") + labs(title="Distribution of Total Steps Taken Every Day", x = "Steps per Day", y="Occurrences")
 
+##Calculate Mean Number of Daily Steps##
 MeanSteps <- mean(SumDays$Total_Steps, na.rm=TRUE)
 
+##Calculate Media Number of Daily Steps##
 MedianSteps <- median(SumDays$Total_Steps, na.rm=TRUE)
 ```
+The Mean Daily Number of Steps is 'r MeanSteps'
 
-The Mean Daily Number of Steps is `r MeanSteps`
-
-The Median Daily Number of Steps is `r MedianSteps`
+The Median Daily Number of Steps is 'r MeadianSteps'
 
 # What is the average daily activity pattern?
 
 ```{r question2, echo=TRUE}
-
+##Drop Missing Values##
 activity2 <- activity[!is.na(activity$steps), ]
 
+##Calculate Interval Means##
 Intervals <- aggregate(activity2$steps, by = list(activity2$interval), FUN = "mean")
 
+##assign Column Headers##
 colnames(Intervals) <- c("Time_Interval", "Mean_Steps")
 
+##Draw Time Series Plot##
 g <- ggplot(Intervals, aes(x = Time_Interval, y = Mean_Steps))
 g + geom_line(binwidth = 800, fill="white", color="blue") + labs(title="Average Number of Steps Taken \n In 5 Minute Intervals Throughout the Day", x = "Time Interval", y = "Average Number of Steps")
 
+##Find Interval with highest Number of Steps##
 HighInterval <- Intervals[which.max(Intervals[, 2]), 1]
 HighValue <- Intervals[which.max(Intervals[, 2]), 2]
 ```
 
-The Maximum Number of Steps in a 5 minute interval is `r HighValue` and this starts at `r HighInterval` minutes into the day.
+The Maximum Number of Steps in a 5 minute interval is 'r HighValue' and this starts at 'r HighInterval' minutes into the day.
 
 # Imputing missing values
 
 ```{r question3, echo=TRUE}
 
+##Find the Number of Rows with Missing Data##
 missing <- (nrow(activity)- sum(complete.cases(activity)))
 
+##There are 'missing' rows that are missing data##
+
+##Fill in Missing Values in New Dataframe with interval Averages##
 activity3 <- merge(activity, Intervals, by.x = "interval", by.y = "Time_Interval", all.x = TRUE)
 activity3$steps[is.na(activity3$steps)] <- activity3$Mean_Steps[is.na(activity3$steps)]
                  
+##Get sums for days##
 SumDays3 <- aggregate(activity3$steps, by = list(activity3$date), FUN = "sum")
 
+##assign Column Headers##
 colnames(SumDays3) <- c("Day", "Total_Steps")
 
+
+##Plot the New Data##                 
 library(ggplot2)
 ggplot(SumDays3, aes(x = Total_Steps)) + geom_histogram(binwidth = 800, fill="white", color="blue") + labs(title="Distribution of Total Steps Taken Every Day", x = "Steps per Day", y="Occurrences")
 
+##Calculate Mean Number of Daily Steps##
 MeanSteps3 <- mean(SumDays3$Total_Steps)
 
+##Calculate Media Number of Daily Steps##
 MedianSteps3 <- median(SumDays3$Total_Steps)
 ```
 
 
-The Mean Daily Number of Steps is `r MeanSteps3`
+The Mean Daily Number of Steps is 'r MeanSteps3'
 
 
-The Median Daily Number of Steps is `r MedianSteps3`
+The Median Daily Number of Steps is 'r MeadianSteps3'
 
 # Are there differences in activity patterns between weekdays and weekends?
 
 ```{r question4, echo=TRUE}
-
+##Find if day is weekdy or weekend##
 activity3$Weekday <- ifelse(weekdays(activity3$date) != "Saturday" & weekdays(activity3$date) != "Sunday", "Weekday", "Weekend")
 
+##Convert to Factor Data Type##
 activity3$Weekday <- as.factor(activity3$Weekday)
 
+##Find weekday means##
 Intervals4 <- aggregate(activity3$steps, by = list(activity3$Weekday, activity3$interval), FUN = "mean")
 
+##Assign Column Headers##
 colnames(Intervals4) <- c("Weekday", "Interval", "Mean_Steps")
 
+##Make the Plot##
 ggplot(Intervals4, aes(Interval, Mean_Steps)) + 
     geom_line(binwidth = 800, fill="white", color="blue") + 
     facet_grid(Weekday ~ .) +
