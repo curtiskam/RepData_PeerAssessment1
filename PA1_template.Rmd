@@ -93,7 +93,7 @@ MeanSteps3 <- mean(SumDays3$Total_Steps)
 MedianSteps3 <- median(SumDays3$Total_Steps)
 ```
 
-There are `r missing` rows with mssing values
+There are `r missing` rows with missing values
 
 Once the means for the interval replace missing values:
 
